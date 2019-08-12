@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+  #header {
+    background-image: url("nobet_logo.gif");
+    margin: auto;
+    height: 156px;
+    width: 205px;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  hr {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    padding: 10px;
+    text-align: center;
+    margin:0;
+  }
+
+  input {
+    margin:0 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 2.2em;
+    font-size: 24px;
+    border: 1px black solid;
+    border-radius: 3px;
+    padding:1px 2px;
+    text-align: center;
+  }
+
+  button {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(56, 89, 180);
+    color: white;
+    padding: 7px 10px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 24px;
+  }
+
+  #container {
+    height: auto;
+    width: auto;
+  }
+</style>
+
+<body>
+  <div id="container">
+    <div id="header"></div>
+    <hr>
+    <p>Travel Duration <input type="number" min=0 id="ttime" placeholder="Min"></p>
+    <p>Call Time <input type="number" id="ctimeh" min=0 max=24 placeholder="Hour">:<input id="ctime" type="number" min=0
+        max=59 placeholder="Min"></p>
+    <p>Lunch Duration <input type="number" min=0 id="ltime" placeholder="Min"></p>
+    <hr>
+    <p><button onclick="submitted()">Submit</button></p>
+    <p id="output"></p>
+    <script>
+      function submitted() {
+        var travel = document.getElementById("ttime");
+        var callHour = document.getElementById("ctimeh");
+        var callMin = document.getElementById("ctime");
+        var lunch = document.getElementById("ltime");
+        var output = document.getElementById("output");
+        var date = new Date()
+        var hour = parseInt(0 + callHour.value) + 14
+        var min = parseInt(0 + callMin.value) + (parseInt(0 + lunch.value) - parseInt(0 + travel.value))
+        date.setHours(hour, 0, 0);
+        date.setMinutes(min);
+        var endHour = date.getHours()
+        var endMin = date.getMinutes()
+        output.innerHTML = "Hotel earned at " + date.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        });
+      }
+    </script>
+  </div>
+</body>
+
+</html>
